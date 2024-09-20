@@ -1,5 +1,4 @@
 'use client'
-import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { useState } from 'react'
 
 // Components
@@ -8,11 +7,13 @@ import { Content, Header } from 'antd/es/layout/layout'
 import Sider from 'antd/es/layout/Sider'
 
 // Icons
+import DotaIcon from '@/icons/DotaIcon'
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
 } from '@ant-design/icons'
+import { SvgIcon } from '@mui/material'
 
 interface Props {
   children: React.ReactNode
@@ -33,8 +34,12 @@ export default function RootLayoutClient({ children }: Readonly<Props>) {
         collapsible
         collapsed={collapsed}
       >
-        <div className="demo-logo-vertical" >
-          
+        <div className="demo-logo-vertical">
+          <DotaIcon sx={{
+            h: '100px',
+            color: 'red',
+          }}
+          />
         </div>
         <Menu
           theme="dark"
