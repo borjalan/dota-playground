@@ -1,0 +1,9 @@
+{
+  "recommendations": [
+    "dbaeumer.vscode-eslint",
+    "eamodio.gitlens",
+    "alefragnani.project-manager",
+    "mhutchie.git-graph",
+    "natqe.reload"
+  ]
+}
