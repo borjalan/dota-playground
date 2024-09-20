@@ -2,7 +2,7 @@
 import { useState } from 'react'
 
 // Components
-import { Button, Layout, Menu, theme } from 'antd'
+import { Button, Flex, Layout, Menu, theme } from 'antd'
 import { Content, Header } from 'antd/es/layout/layout'
 import Sider from 'antd/es/layout/Sider'
 
@@ -14,6 +14,7 @@ import {
   UserOutlined,
 } from '@ant-design/icons'
 import { SvgIcon } from '@mui/material'
+import Title from 'antd/es/typography/Title'
 
 interface Props {
   children: React.ReactNode
@@ -29,18 +30,38 @@ export default function RootLayoutClient({ children }: Readonly<Props>) {
         background: colorBgContainer,
       }}
     >
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-      >
-        <div className="demo-logo-vertical">
+      <Sider trigger={null} collapsible collapsed={collapsed}>
+        <Flex
+          align="center"
+          justify="center"
+          gap={2}
+          style={{
+            height: '64px',
+            background: 'rgba(0, 0, 0, 0.85)',
+            borderRadius: '16px',
+            overflow: 'hidden',
+          }}
+        >
           <DotaIcon sx={{
             h: '100px',
             color: 'red',
           }}
           />
-        </div>
+          <Title
+            level={5}
+            style={{
+              color: 'white',
+              margin: 0,
+              opacity: collapsed ? 0 : 1,
+              transition: 'opacity 0.2s ease-in-out, max-width 0.1s ease-in-out',
+              maxWidth: collapsed ? '0' : '200px', // Ajusta el valor según sea necesario
+              whiteSpace: 'nowrap',
+              overflow: 'hidden',
+            }}
+          >
+            Dota Playground
+          </Title>
+        </Flex>
         <Menu
           theme="dark"
           mode="inline"
