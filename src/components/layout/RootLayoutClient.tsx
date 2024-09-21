@@ -18,13 +18,14 @@ export default function RootLayoutClient({ children }: Readonly<Props>) {
   const router = useRouter()
   const fullPath = usePathname()
   const [collapsed, setCollapsed] = useState(false)
-  const [selectedKeys, setSelectedKeys] = useState(fullPath)
+  const [selectedKey, setSelectedKey] = useState<string>('')
   const { token: { colorBgContainer, borderRadiusLG } } = theme.useToken()
 
   useEffect(() => {
-    const item = ITEMS.filter(item => )
-    setSelectedKeys()
-  }, [])
+    const item = ITEMS.find(item => item.path === fullPath)
+    if (item)
+      setSelectedKey(item.key)
+  }, [fullPath])
 
   const handleClickItem: MenuProps['onClick'] = (eventItem) => {
     const item = ITEMS.find(item => item.key === eventItem.key)
@@ -77,6 +78,7 @@ export default function RootLayoutClient({ children }: Readonly<Props>) {
           mode="inline"
           onClick={handleClickItem}
           items={ITEMS}
+          selectedKeys={[selectedKey]}
         />
       </Sider>
       <Layout>
