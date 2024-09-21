@@ -1,27 +1,30 @@
 'use client'
-import { useState } from 'react'
-
-// Components
+import type { MenuProps } from 'antd'
+import { ITEMS } from '@/constants/rootLayout.constants'
+import DotaIcon from '@/icons/DotaIcon'
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 import { Button, Flex, Layout, Menu, theme } from 'antd'
 import { Content, Header } from 'antd/es/layout/layout'
 import Sider from 'antd/es/layout/Sider'
 import Title from 'antd/es/typography/Title'
-
-// Icons
-import DotaIcon from '@/icons/DotaIcon'
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UserOutlined,
-} from '@ant-design/icons'
+import { useRouter } from 'next/navigation'
+import { useState } from 'react'
 
 interface Props {
   children: React.ReactNode
 }
 
 export default function RootLayoutClient({ children }: Readonly<Props>) {
+  const router = useRouter()
   const [collapsed, setCollapsed] = useState(false)
   const { token: { colorBgContainer, borderRadiusLG } } = theme.useToken()
+
+  const handleClickItem: MenuProps['onClick'] = (eventItem) => {
+    const item = ITEMS.find(item => item.key === eventItem.key)
+    if (item)
+      router.push(item.path)
+  }
+
   return (
     <Layout
       style={{
@@ -34,6 +37,7 @@ export default function RootLayoutClient({ children }: Readonly<Props>) {
           align="center"
           justify="center"
           gap={2}
+          onClick={() => router.push('/')}
           style={{
             height: '64px',
             background: 'rgba(0, 0, 0, 0.85)',
@@ -64,13 +68,8 @@ export default function RootLayoutClient({ children }: Readonly<Props>) {
         <Menu
           theme="dark"
           mode="inline"
-          items={[
-            {
-              key: '1',
-              icon: <UserOutlined />,
-              label: 'Héroes',
-            },
-          ]}
+          onClick={handleClickItem}
+          items={ITEMS}
         />
       </Sider>
       <Layout>
