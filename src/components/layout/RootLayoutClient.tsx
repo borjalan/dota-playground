@@ -38,6 +38,7 @@ export default function RootLayoutClient({ children }: Readonly<Props>) {
             height: '64px',
             background: 'rgba(0, 0, 0, 0.85)',
             overflow: 'hidden',
+            cursor: 'pointer',
           }}
         >
           <DotaIcon sx={{
