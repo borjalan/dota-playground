@@ -7,8 +7,8 @@ import { Button, Flex, Layout, Menu, theme } from 'antd'
 import { Content, Header } from 'antd/es/layout/layout'
 import Sider from 'antd/es/layout/Sider'
 import Title from 'antd/es/typography/Title'
-import { useRouter } from 'next/navigation'
-import { useState } from 'react'
+import { usePathname, useRouter } from 'next/navigation'
+import { useEffect, useState } from 'react'
 
 interface Props {
   children: React.ReactNode
@@ -16,8 +16,15 @@ interface Props {
 
 export default function RootLayoutClient({ children }: Readonly<Props>) {
   const router = useRouter()
+  const fullPath = usePathname()
   const [collapsed, setCollapsed] = useState(false)
+  const [selectedKeys, setSelectedKeys] = useState(fullPath)
   const { token: { colorBgContainer, borderRadiusLG } } = theme.useToken()
+
+  useEffect(() => {
+    const item = ITEMS.filter(item => )
+    setSelectedKeys()
+  }, [])
 
   const handleClickItem: MenuProps['onClick'] = (eventItem) => {
     const item = ITEMS.find(item => item.key === eventItem.key)
