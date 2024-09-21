@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { Button, Flex, Layout, Menu, theme } from 'antd'
 import { Content, Header } from 'antd/es/layout/layout'
 import Sider from 'antd/es/layout/Sider'
+import Title from 'antd/es/typography/Title'
 
 // Icons
 import DotaIcon from '@/icons/DotaIcon'
@@ -13,8 +14,6 @@ import {
   MenuUnfoldOutlined,
   UserOutlined,
 } from '@ant-design/icons'
-import { SvgIcon } from '@mui/material'
-import Title from 'antd/es/typography/Title'
 
 interface Props {
   children: React.ReactNode
@@ -38,7 +37,6 @@ export default function RootLayoutClient({ children }: Readonly<Props>) {
           style={{
             height: '64px',
             background: 'rgba(0, 0, 0, 0.85)',
-            borderRadius: '16px',
             overflow: 'hidden',
           }}
         >
@@ -52,11 +50,11 @@ export default function RootLayoutClient({ children }: Readonly<Props>) {
             style={{
               color: 'white',
               margin: 0,
-              opacity: collapsed ? 0 : 1,
-              transition: 'opacity 0.2s ease-in-out, max-width 0.1s ease-in-out',
-              maxWidth: collapsed ? '0' : '200px', // Ajusta el valor según sea necesario
               whiteSpace: 'nowrap',
               overflow: 'hidden',
+              maxWidth: collapsed ? '0' : '200px',
+              opacity: collapsed ? 0 : 1,
+              transition: 'opacity 0.2s ease-in-out, max-width 0.1s ease-in-out',
             }}
           >
             Dota Playground
@@ -65,7 +63,6 @@ export default function RootLayoutClient({ children }: Readonly<Props>) {
         <Menu
           theme="dark"
           mode="inline"
-          defaultSelectedKeys={['1']}
           items={[
             {
               key: '1',
