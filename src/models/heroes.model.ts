@@ -8,7 +8,7 @@ interface Hero extends Document {
   heroName: string
   image: string
   atribute: Dota2Atribute
-  roles: Dota2Role
+  roles: Dota2Role[]
 }
 
 const HeroSchema: Schema = new Schema({
@@ -16,7 +16,17 @@ const HeroSchema: Schema = new Schema({
   heroName: { type: String, required: true },
   image: { type: String, required: true },
   atribute: { type: String, required: true, enum: ['Strength', 'Agility', 'Intelligence', 'Universal'] },
-  roles: { type: String, required: true, enum: ['Carry', 'Support', 'Nuker', 'Disabler', 'Jungler', 'Durable', 'Escape', 'Pusher', 'Initiator'] },
+  roles: {
+    type: [{
+      type: String,
+      enum: ['Carry', 'Disabler', 'Durable', 'Escape', 'Initiator', 'Jungler', 'Nuker', 'Pusher', 'Support'],
+    }],
+    required: true,
+    validate: {
+      validator: (value: string[]) => value.length > 0 && new Set(value).size === value.length,
+      message: 'At least one role is required and must not be repeated',
+    },
+  },
 })
 
 export default mongoose.models.Heroes || mongoose.model<Hero>('Heroes', HeroSchema)

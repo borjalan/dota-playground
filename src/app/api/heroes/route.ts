@@ -1,8 +1,10 @@
+import connectToDb from '@/helpers/mongodb/connectDb'
 import Heroes from '@/models/heroes.model'
 import { type NextRequest, NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 export async function GET(request: NextRequest) {
+  await connectToDb()
   const { searchParams } = new URL(request.url)
   const page = searchParams.get('page') || '1'
   const PAGE_SIZE = 10
@@ -14,6 +16,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  await connectToDb()
   const { _id, heroName, image, atribute, roles } = await request.json()
   if (!_id) {
     const hero = new Heroes({ heroName, image, atribute, roles })

@@ -1,20 +1,24 @@
 /* eslint-disable node/prefer-global/process */
-/* eslint-disable import/no-mutable-exports */
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-export let client: mongoose.Connection | null = null;
-
-const DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
+let isConnected = false // Estado de la conexión
 
 async function connectToDb() {
-    if (client) return { client };
-    if (!DB_CONNECTION_STRING) throw new Error("DB_CONNECTION_STRING is not defined");
+  if (isConnected)
+    return
 
-    await mongoose.connect(DB_CONNECTION_STRING);
-    // Use web db
-    client = mongoose.connection;
+  const { MONGODB_URI } = process.env
+  if (!MONGODB_URI)
+    throw new Error('MongoDB URI is not defined')
 
-    return { client };
+  try {
+    await mongoose.connect(MONGODB_URI)
+    isConnected = true
+  }
+  catch (error) {
+    console.error('Error connecting to MongoDB:', error)
+    throw new Error('Failed to connect to MongoDB')
+  }
 }
 
-export default connectToDb;
+export default connectToDb
