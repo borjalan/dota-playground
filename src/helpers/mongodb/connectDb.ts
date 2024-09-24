@@ -3,17 +3,15 @@
 import mongoose from "mongoose";
 
 export let client: mongoose.Connection | null = null;
-export let mongooseInstance: typeof mongoose | null = null;
 
-const MONGOB_URI = process.env.MONGOB_URI;
+const DB_CONNECTION_STRING = process.env.DB_CONNECTION_STRING;
 
 async function connectToDb() {
     if (client) return { client };
-    if (!MONGOB_URI) throw new Error("MONGOB_URI is not defined");
+    if (!DB_CONNECTION_STRING) throw new Error("DB_CONNECTION_STRING is not defined");
 
-    await mongoose.connect(MONGOB_URI);
+    await mongoose.connect(DB_CONNECTION_STRING);
     // Use web db
-    mongooseInstance = mongoose;
     client = mongoose.connection;
 
     return { client };
