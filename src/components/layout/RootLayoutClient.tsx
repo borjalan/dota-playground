@@ -6,10 +6,12 @@ import { Button, Flex, Layout, Menu, theme } from 'antd'
 import { Content, Header } from 'antd/es/layout/layout'
 import Sider from 'antd/es/layout/Sider'
 import Title from 'antd/es/typography/Title'
+import Link from 'next/link'
 
 // Icons
 import DotaIcon from '@/icons/DotaIcon'
 import {
+  LoginOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   UserOutlined,
@@ -69,6 +71,11 @@ export default function RootLayoutClient({ children }: Readonly<Props>) {
               icon: <UserOutlined />,
               label: 'Héroes',
             },
+            {
+              key: 'mutants',
+              icon: <UserOutlined />,
+              label: <Link href="/mutants">Mutants</Link>,
+            },
           ]}
         />
       </Sider>
@@ -84,6 +91,19 @@ export default function RootLayoutClient({ children }: Readonly<Props>) {
               height: 64,
             }}
           />
+          <Link href="/auth/login">
+            <Button
+              type="primary"
+              icon={<LoginOutlined />}
+              style={{
+                position: 'absolute',
+                top: '16px',
+                right: '16px',
+              }}
+            >
+              Login
+            </Button>
+          </Link>
         </Header>
         <Content
           style={{

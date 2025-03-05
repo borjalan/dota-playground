@@ -1,22 +1,24 @@
 /* eslint-disable node/prefer-global/process */
 /* eslint-disable import/no-mutable-exports */
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-export let client: mongoose.Connection | null = null;
-export let mongooseInstance: typeof mongoose | null = null;
+export let client: mongoose.Connection | null = null
+export let mongooseInstance: typeof mongoose | null = null
 
-const MONGOB_URI = process.env.MONGOB_URI;
+const MONGOB_URI = process.env.MONGOB_URI
 
 async function connectToDb() {
-    if (client) return { client };
-    if (!MONGOB_URI) throw new Error("MONGOB_URI is not defined");
+  if (client)
+    return { client }
+  if (!MONGOB_URI)
+    throw new Error('MONGOB_URI is not defined')
 
-    await mongoose.connect(MONGOB_URI);
-    // Use web db
-    mongooseInstance = mongoose;
-    client = mongoose.connection;
+  await mongoose.connect(MONGOB_URI)
+  // Use web db
+  mongooseInstance = mongoose
+  client = mongoose.connection
 
-    return { client };
+  return { client }
 }
 
-export default connectToDb;
+export default connectToDb
